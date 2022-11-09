@@ -20,7 +20,7 @@ async function run(){
         const serviceCollection = client.db('homefood').collection('services');
 
         const reviewCollection = client.db('homefood').collection('reviews');
-        // serviceCollection.insertOne({Name: 'Ashraf'})
+        
         
         // create services API
         app.post('/services', async(req, res) => {
