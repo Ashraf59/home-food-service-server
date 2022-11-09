@@ -20,7 +20,7 @@ async function run(){
         const serviceCollection = client.db('homefood').collection('services');
 
         const reviewCollection = client.db('homefood').collection('reviews');
-        serviceCollection.insertOne({Name: 'Ashraf'})
+        // serviceCollection.insertOne({Name: 'Ashraf'})
         
         // create services API
         app.post('/services', async(req, res) => {
@@ -31,12 +31,19 @@ async function run(){
 
         // // read services API
         // // loading server data for client site
-        // app.get('/services', async(req, res) => {
-        //     const query = {}
-        //     const cursor = serviceCollection.find(query);
-        //     const services = await cursor.limit(3).toArray();
-        //     res.send(services);
-        // })
+        app.get('/services', async(req, res) => {
+            const query = {}
+            const cursor = serviceCollection.find(query);
+            const services = await cursor.limit(3).toArray();
+            res.send(services);
+        })
+
+        app.get('/allservices', async(req, res) => {
+            const query = {}
+            const cursor = serviceCollection.find(query);
+            const allservices = await cursor.toArray();
+            res.send(allservices);
+        })
     }
     finally{
 
