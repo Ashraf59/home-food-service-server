@@ -5,6 +5,9 @@ require('dotenv').config();
 const app = express();
 const port = process.env.PORT || 5000;
 
+// json web token
+// const jwt = require('jsonwebtoken');
+
 //Middle Wares
 
 app.use(cors());
@@ -85,7 +88,27 @@ async function run(){
             const query = { _id: ObjectId(id) }
             const remain = await reviewCollection.deleteOne(query)
             res.send(remain)
-        })
+        });
+
+        // Update data
+        app.get("/myreviews/:id", async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: ObjectId(id) }
+            const result = await reviewCollection.findOne(query)
+            res.send(result)
+        });
+
+        // update 
+        app.patch('/review/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = req.body;
+            const filter = { _id: ObjectId(id) }
+            const updateDoc = {
+                $set: query
+            }
+            const result = await reviewCollection.updateOne(filter, updateDoc)
+            res.send(result);
+        });
     }
     finally{
 
